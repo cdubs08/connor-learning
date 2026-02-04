@@ -1,0 +1,105 @@
+---
+cdiVersion: 0.3.0
+kind: nvidia.com/gpu
+devices:
+    - name: all
+      containerEdits:
+        deviceNodes:
+            - path: /dev/dxg
+containerEdits:
+    env:
+        - NVIDIA_VISIBLE_DEVICES=void
+    hooks:
+        - hookName: createContainer
+          path: /usr/bin/nvidia-cdi-hook
+          args:
+            - nvidia-cdi-hook
+            - create-symlinks
+            - --link
+            - /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/nvidia-smi::/usr/bin/nvidia-smi
+          env:
+            - NVIDIA_CTK_DEBUG=false
+        - hookName: createContainer
+          path: /usr/bin/nvidia-cdi-hook
+          args:
+            - nvidia-cdi-hook
+            - update-ldcache
+            - --folder
+            - /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd
+            - --folder
+            - /usr/lib/wsl/lib
+          env:
+            - NVIDIA_CTK_DEBUG=false
+    mounts:
+        - hostPath: /usr/lib/wsl/lib/libdxcore.so
+          containerPath: /usr/lib/wsl/lib/libdxcore.so
+          options:
+            - ro
+            - nosuid
+            - nodev
+            - rbind
+            - rprivate
+        - hostPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libcuda.so.1.1
+          containerPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libcuda.so.1.1
+          options:
+            - ro
+            - nosuid
+            - nodev
+            - rbind
+            - rprivate
+        - hostPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libcuda_loader.so
+          containerPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libcuda_loader.so
+          options:
+            - ro
+            - nosuid
+            - nodev
+            - rbind
+            - rprivate
+        - hostPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libnvdxgdmal.so.1
+          containerPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libnvdxgdmal.so.1
+          options:
+            - ro
+            - nosuid
+            - nodev
+            - rbind
+            - rprivate
+        - hostPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libnvidia-ml.so.1
+          containerPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libnvidia-ml.so.1
+          options:
+            - ro
+            - nosuid
+            - nodev
+            - rbind
+            - rprivate
+        - hostPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libnvidia-ml_loader.so
+          containerPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libnvidia-ml_loader.so
+          options:
+            - ro
+            - nosuid
+            - nodev
+            - rbind
+            - rprivate
+        - hostPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libnvidia-ptxjitcompiler.so.1
+          containerPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/libnvidia-ptxjitcompiler.so.1
+          options:
+            - ro
+            - nosuid
+            - nodev
+            - rbind
+            - rprivate
+        - hostPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/nvcubins.bin
+          containerPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/nvcubins.bin
+          options:
+            - ro
+            - nosuid
+            - nodev
+            - rbind
+            - rprivate
+        - hostPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/nvidia-smi
+          containerPath: /usr/lib/wsl/drivers/nvam.inf_amd64_7e083f37999613bd/nvidia-smi
+          options:
+            - ro
+            - nosuid
+            - nodev
+            - rbind
+            - rprivate
