@@ -29,7 +29,3 @@ podman run -d \
 
 9) 
   podman exec -it llama32-server ollama run llama3.2
-
-# Install the toolkit
-sudo apt-get update
-sudo apt-get install -y nvidia-container-toolkit
